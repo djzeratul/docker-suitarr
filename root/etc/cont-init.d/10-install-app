@@ -5,11 +5,9 @@ source /etc/env
 rm -rf /app/*
 
 if [[ $VERSION == "app.tar.gz" ]]; then
-    echo "Installing user provided /app.tar.gz"
     tar xf /app.tar.gz -C /app --strip-components=1
 else
     if [[ $APP == "radarr" ]]; then
-        echo "Downloading & Installing Radarr..."
         if [[ $VERSION == "default" ]]; then
             jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop" | jq -r '.build.jobs[0].jobId')
         else
@@ -23,7 +21,6 @@ else
     fi
 
     if [[ $APP == "sonarr" ]]; then
-        echo "Downloading & Installing Sonarr..."
         if [[ $VERSION == "default" ]] && [[ $BRANCH == "default" ]]; then
             curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
         else
@@ -34,7 +31,6 @@ else
     fi
 
     if [[ $APP == "jackett" ]]; then
-        echo "Downloading & Installing Jackett..."
         if [[ $VERSION == "default" ]]; then
             jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/branch/master" | jq -r '.build.jobs[0].jobId')
         else
@@ -48,7 +44,6 @@ else
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
-        echo "Downloading & Installing NZBHydra..."
         if [[ $VERSION == "default" ]]; then
             curl -s -o /tmp/nzbhydra.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
         else

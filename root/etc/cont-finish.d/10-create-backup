@@ -3,7 +3,6 @@
 source /etc/env
 
 if [[ $APP == "radarr" ]]; then
-    echo "Creating Radarr backup..."
     from=/config/Radarr
     to=$from/Backups/manual
     file=radarr
@@ -15,7 +14,6 @@ if [[ $APP == "radarr" ]]; then
 fi
 
 if [[ $APP == "sonarr" ]]; then
-    echo "Creating Sonarr backup..."
     from=/config/NzbDrone
     to=$from/Backups/manual
     file=nzbdrone
