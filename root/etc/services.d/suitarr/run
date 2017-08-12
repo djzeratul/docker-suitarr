@@ -1,0 +1,17 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $UMASK == "" ]]; then
+    UMASK=022
+fi
+
+umask $UMASK
+
+cd /app || exit
+
+if [[ $APP == "radarr" ]]; then
+    exec s6-setuidgid hotio mono --debug Radarr.exe -nobrowser
+fi
+
+if [[ $APP == "sonarr" ]]; then
+    exec s6-setuidgid hotio mono --debug NzbDrone.exe -nobrowser
+fi
