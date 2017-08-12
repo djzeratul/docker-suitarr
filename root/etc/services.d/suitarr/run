@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-umask $UMASK
+SETUMASK=$UMASK
+umask $SETUMASK
 
 cd /app || exit
 
@@ -16,7 +17,7 @@ fi
 
 if [[ $APP == "jackett" ]]; then
     echo "Starting Jackett..."
-    if [[ $JACKETT_PROXY != "" ]]; then
+    if [[ $JACKETT_PROXY != "none" ]]; then
         exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080 --ProxyConnection $JACKETT_PROXY
     else
         exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080
