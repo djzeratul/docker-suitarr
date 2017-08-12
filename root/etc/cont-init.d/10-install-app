@@ -25,5 +25,30 @@ if [[ $APP == "sonarr" ]]; then
     tar ixzf /tmp/sonarr.tar.gz -C /app --strip-components=1
 fi
 
+if [[ $APP == "jackett" ]]; then
+    echo "Installing Jackett..."
+    if [[ $VERSION == "" ]]; then
+        jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/branch/master" | jq -r '.build.jobs[0].jobId')
+    else
+        jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+    fi
+    
+    filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[2].fileName')
+    curl -s -o /tmp/jackett.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
+
+    tar xf /tmp/jackett.tar.gz -C /app --strip-components=1
+fi
+
+if [[ $APP == "nzbhydra" ]]; then
+    echo "Installing NZBHydra..."
+    if [[ $VERSION == "" ]]; then
+        curl -s -o /tmp/nzbhydra.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
+    else
+        curl -s -o /tmp/nzbhydra.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
+    fi
+    
+    tar xf /tmp/nzbhydra.tar.gz -C /app --strip-components=1
+fi
+    
 rm -rf /tmp/*
 chown -R hotio:hotio /app

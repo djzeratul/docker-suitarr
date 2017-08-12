@@ -2,7 +2,7 @@
 
 if [[ $APP == "radarr" ]]; then
     if [[ -f /config/Radarr/config.xml ]]; then
-        sed -i 's/<Port>7878<\/Port>/<Port>8080<\/Port>/g' /config/Radarr/config.xml
+        sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' /config/Radarr/config.xml
     else
         mkdir -p /config/Radarr
         echo "<Config>" >> /config/Radarr/config.xml
@@ -13,7 +13,7 @@ fi
 
 if [[ $APP == "sonarr" ]]; then
     if [[ -f /config/NzbDrone/config.xml ]]; then
-        sed -i 's/<Port>8989<\/Port>/<Port>8080<\/Port>/g' /config/NzbDrone/config.xml
+        sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' /config/NzbDrone/config.xml
     else
         mkdir -p /config/NzbDrone
         echo "<Config>" >> /config/NzbDrone/config.xml

@@ -17,3 +17,17 @@ if [[ $APP == "sonarr" ]]; then
     echo "Starting Sonarr..."
     exec s6-setuidgid hotio mono --debug NzbDrone.exe -nobrowser
 fi
+
+if [[ $APP == "jackett" ]]; then
+    echo "Starting Jackett..."
+    if [[ $JACKETT_PROXY != "" ]]; then
+        exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080 --ProxyConnection $JACKETT_PROXY
+    else
+        exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080
+    fi
+fi
+
+if [[ $APP == "nzbhydra" ]]; then
+    echo "Starting NZBHydra..."
+    exec s6-setuidgid hotio python ./nzbhydra.py --nobrowser --config /config/nzbhydra.cfg --database /config/nzbhydra.db --logfile /config/nzbhydra.log --port 8080
+fi
