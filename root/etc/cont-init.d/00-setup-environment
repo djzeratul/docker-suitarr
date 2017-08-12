@@ -24,19 +24,7 @@ JACKETT_PROXY  | $JACKETT_PROXY
 -------------------------------------------
 "
 
-export PUID=${PUID:-1000}
-export PGID=${PGID:-1000}
-export UMASK=${UMASK:-022}
-export APP=${APP:-none}
-export TZ=${TZ:-America/New_York}
-export BRANCH=${BRANCH:-default}
-export VERSION=${VERSION:-default}
-export JACKETT_PROXY=${JACKETT_PROXY:-none}
-
-if [[ -f /app.tar.gz ]]; then
-    export BRANCH=app.tar.gz
-    export VERSION=app.tar.gz
-fi
+source /etc/env
 
 echo "
 RUNNING ENVIRONMENT

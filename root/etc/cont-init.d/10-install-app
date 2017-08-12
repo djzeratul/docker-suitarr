@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bash
 
+source /etc/env
+
 rm -rf /app/*
 
 if [[ -f /app.tar.gz ]]; then
