@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $APP == "radarr" ]]; then
+    [[ -e /config/Radarr/nzbdrone.pid ]] && rm -rf /config/Radarr/nzbdrone.pid
+fi
+
+if [[ $APP == "sonarr" ]]; then
+    [[ -e /config/NzbDrone/nzbdrone.pid ]] && rm -rf /config/NzbDrone/nzbdrone.pid
+fi

@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $APP == "radarr" ]]; then
+    if [[ -f /config/Radarr/config.xml ]]; then
+        sed -i 's/<Port>7878<\/Port>/<Port>80<\/Port>/g' /config/Radarr/config.xml
+    else
+        echo "<Config>" >> /config/Radarr/config.xml
+        echo "  <Port>80</Port>" >> /config/Radarr/config.xml
+        echo "</Config>" >> /config/Radarr/config.xml
+    fi
+fi
+
+if [[ $APP == "sonarr" ]]; then
+    if [[ -f /config/NzbDrone/config.xml ]]; then
+        sed -i 's/<Port>8989<\/Port>/<Port>80<\/Port>/g' /config/NzbDrone/config.xml
+    else
+        echo "<Config>" >> /config/NzbDrone/config.xml
+        echo "  <Port>80</Port>" >> /config/NzbDrone/config.xml
+        echo "</Config>" >> /config/NzbDrone/config.xml
+    fi
+fi

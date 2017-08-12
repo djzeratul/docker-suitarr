@@ -1,0 +1,23 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $APP == "radarr" ]]; then
+    from=/config/Radarr
+    to=$from/Backups/manual
+    file=radarr
+
+    mkdir -p $to
+    cd $from
+    zip $to/docker_$file\_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+    chown -R hotio:hotio $from/Backups
+fi
+
+if [[ $APP == "sonarr" ]]; then
+    from=/config/NzbDrone
+    to=$from/Backups/manual
+    file=nzbdrone
+
+    mkdir -p $to
+    cd $from
+    zip $to/docker_$file\_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+    chown -R hotio:hotio $from/Backups
+fi

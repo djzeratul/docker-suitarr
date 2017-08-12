@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $APP == "radarr" ]]; then
+    echo "Installing Radarr..."
+    if [[ $VERSION == "" ]]; then
+        jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop" | jq -r '.build.jobs[0].jobId')
+    else
+        jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+    fi
+    
+    filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
+    curl -s -o /tmp/radarr.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
+        
+    tar ixzf /tmp/radarr.tar.gz -C /app --strip-components=1
+fi
+
+if [[ $APP == "sonarr" ]]; then
+    echo "Installing Sonarr..."
+    if [[ $VERSION == "" ]] && [[ $BRANCH == "" ]]; then
+        curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+    else
+        curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/${BRANCH}/mono/NzbDrone.${BRANCH}.${VERSION}.mono.tar.gz"
+    fi
+
+    tar ixzf /tmp/sonarr.tar.gz -C /app --strip-components=1
+fi
+
+rm -rf /tmp/*
+chown -R hotio:hotio /app
