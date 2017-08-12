@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+
+echo "
+-------------------------------------------
+ENVIRONMENT
+-------------------------------------------
+APP            | $APP
+UMASK          | $UMASK
+PUID           | $PUID
+PGID           | $PGID
+TZ             | $TZ
+BRANCH         | $BRANCH
+VERSION        | $VERSION
+JACKETT_PROXY  | $JACKETT_PROXY
+-------------------------------------------
+"

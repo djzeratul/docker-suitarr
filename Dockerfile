@@ -57,3 +57,5 @@ EXPOSE 8080
 VOLUME ["/config"]
 
 ENTRYPOINT ["/init"]
+
+HEALTHCHECK --interval=200s --timeout=100s CMD curl --fail http://localhost:8080 || exit 1

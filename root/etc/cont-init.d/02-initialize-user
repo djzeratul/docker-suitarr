@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
+
+groupmod -o -g "$PGID" hotio
+usermod -o -u "$PUID" hotio
+
+echo "
+-------------------------------------------
+RUNNING AS
+-------------------------------------------
+USER           | hotio
+GROUP          | hotio
+UID            | $(id -u hotio)
+GID            | $(id -g hotio)
+-------------------------------------------
+"

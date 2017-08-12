@@ -4,6 +4,7 @@ if [[ $UMASK == "" ]]; then
     UMASK=022
 fi
 
+echo "Setting UMASK: $UMASK"
 umask $UMASK
 
 cd /app || exit
