@@ -4,8 +4,8 @@ source /etc/env
 
 rm -rf /app/*
 
-if [[ -f /app.tar.gz ]]; then
-    echo "Installing user provided app.tar.gz"
+if [[ $VERSION == "app.tar.gz" ]]; then
+    echo "Installing user provided /app.tar.gz"
     tar xf /app.tar.gz -C /app --strip-components=1
 else
     if [[ $APP == "radarr" ]]; then
