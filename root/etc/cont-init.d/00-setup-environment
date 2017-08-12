@@ -24,18 +24,18 @@ JACKETT_PROXY  | $JACKETT_PROXY
 -------------------------------------------
 "
 
-PUID=${PUID:-1000}
-PGID=${PGID:-1000}
-UMASK=${UMASK:-022}
-APP=${APP:-none}
-TZ=${TZ:-America/New_York}
-BRANCH=${BRANCH:-default}
-VERSION=${VERSION:-default}
-JACKETT_PROXY=${JACKETT_PROXY:-none}
+export PUID=${PUID:-1000}
+export PGID=${PGID:-1000}
+export UMASK=${UMASK:-022}
+export APP=${APP:-none}
+export TZ=${TZ:-America/New_York}
+export BRANCH=${BRANCH:-default}
+export VERSION=${VERSION:-default}
+export JACKETT_PROXY=${JACKETT_PROXY:-none}
 
 if [[ -f /app.tar.gz ]]; then
-    BRANCH=app.tar.gz
-    VERSION=app.tar.gz
+    export BRANCH=app.tar.gz
+    export VERSION=app.tar.gz
 fi
 
 echo "
