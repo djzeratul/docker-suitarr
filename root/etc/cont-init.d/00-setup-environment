@@ -1,0 +1,50 @@
+#!/usr/bin/with-contenv bash
+
+echo '                                               '
+echo '   _________      __  __                       '
+echo '  /   _____/__ __|__|/  |______ ______________ '
+echo '  \_____  \|  |  \  \   __\__  \\_  __ \_  __ \'
+echo '  /        \  |  /  ||  |  / __ \|  | \/|  | \/'
+echo ' /_______  /____/|__||__| (____  /__|   |__|   '
+echo '         \/                    \/              '
+echo '                                               '
+
+echo "
+-------------------------------------------
+GIVEN ENVIRONMENT
+-------------------------------------------
+PUID           | $PUID
+PGID           | $PGID
+UMASK          | $UMASK
+APP            | $APP
+TZ             | $TZ
+BRANCH         | $BRANCH
+VERSION        | $VERSION
+JACKETT_PROXY  | $JACKETT_PROXY
+-------------------------------------------
+
+"
+
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
+UMASK=${UMASK:-022}
+TZ=${TZ:-America/New_York}
+
+groupmod -o -g "$PGID" hotio
+usermod -o -u "$PUID" hotio
+
+echo "
+-------------------------------------------
+RUNNING ENVIRONMENT
+-------------------------------------------
+PUID           | $(id -u hotio)
+PGID           | $(id -g hotio)
+UMASK          | $UMASK
+APP            | $APP
+TZ             | $TZ
+BRANCH         | $BRANCH
+VERSION        | $VERSION
+JACKETT_PROXY  | $JACKETT_PROXY
+-------------------------------------------
+
+"
