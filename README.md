@@ -92,3 +92,22 @@ If you prefer to install a fixed version, you can do so, by using the following 
 # NZBHydra
 -e VERSION=f60a628cc5d2a17677e6c9b6bb12ad41063ea4e0
 ```
+
+## In case of problems
+
+When the auto installation of the apps fails for whatever reason, you can provide the installation files manually by mounting the file as a volume.
+Or if you are modifying/self-compiling any app, you can use this feature to test your version.
+
+```
+-v /<local_path>/Radarr.develop.0.2.0.817.linux.tar.gz:/app.tar.gz
+-v /<local_path>/NzbDrone.master.tar.gz:/app.tar.gz
+...
+```
+
+## Additional tags
+
+You can use the following additional tags for certain apps.
+
+```
+-e JACKETT_PROXY=...
+```
