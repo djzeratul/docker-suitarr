@@ -9,9 +9,11 @@ umask $UMASK
 cd /app || exit
 
 if [[ $APP == "radarr" ]]; then
+    echo "Starting Radarr..."
     exec s6-setuidgid hotio mono --debug Radarr.exe -nobrowser
 fi
 
 if [[ $APP == "sonarr" ]]; then
+    echo "Starting Sonarr..."
     exec s6-setuidgid hotio mono --debug NzbDrone.exe -nobrowser
 fi

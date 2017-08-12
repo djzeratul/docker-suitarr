@@ -53,7 +53,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
 COPY root/ /
 
 # ports and volumes
-EXPOSE 80
+EXPOSE 8080
 VOLUME ["/config"]
 
 ENTRYPOINT ["/init"]
