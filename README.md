@@ -95,8 +95,8 @@ If you prefer to install a fixed version, you can do so, by using the following 
 
 ## In case of problems
 
-When the auto installation of the apps fails for whatever reason, you can provide the installation files manually by mounting the file as a volume.
-Or if you are modifying/self-compiling any app, you can use this feature to test your version.
+When the auto installation of the app fails for whatever reason, you can provide the installation files manually by mounting the file as a volume.
+Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar.gz` file.
 
 ```
 -v /<local_path>/Radarr.develop.0.2.0.817.linux.tar.gz:/app.tar.gz
