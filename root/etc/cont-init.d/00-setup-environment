@@ -13,11 +13,10 @@ echo "
 -----------------------------------------------
 GIVEN ENVIRONMENT
 -----------------------------------------------
+APP            | $APP
 PUID           | $PUID
 PGID           | $PGID
 UMASK          | $UMASK
-APP            | $APP
-TZ             | $TZ
 BRANCH         | $BRANCH
 VERSION        | $VERSION
 JACKETT_PROXY  | $JACKETT_PROXY
@@ -29,11 +28,10 @@ source /etc/env
 echo "
 RUNNING ENVIRONMENT
 -----------------------------------------------
+APP            | $APP
 PUID           | $PUID
 PGID           | $PGID
 UMASK          | $UMASK
-APP            | $APP
-TZ             | $TZ
 BRANCH         | $BRANCH
 VERSION        | $VERSION
 JACKETT_PROXY  | $JACKETT_PROXY
