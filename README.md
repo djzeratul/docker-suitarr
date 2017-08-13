@@ -14,8 +14,9 @@ docker run --rm \
            --name radarr \
            -p 7878:8080 \
            -e APP=radarr \
+           -e PUID=1000 \
+           -e PGID=1000 \
            -e UMASK=022 \
-           -e PUID=1000 -e PGID=1000 \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
@@ -30,8 +31,9 @@ docker run --rm \
            --name sonarr \
            -p 8989:8080 \
            -e APP=sonarr \
+           -e PUID=1000 \
+           -e PGID=1000 \
            -e UMASK=022 \
-           -e PUID=1000 -e PGID=1000 \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
@@ -46,8 +48,9 @@ docker run --rm \
            --name jackett \
            -p 9117:8080 \
            -e APP=jackett \
+           -e PUID=1000 \
+           -e PGID=1000 \
            -e UMASK=022 \
-           -e PUID=1000 -e PGID=1000 \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr
@@ -60,8 +63,9 @@ docker run --rm \
            --name nzbhydra \
            -p 5075:8080 \
            -e APP=nzbhydra \
+           -e PUID=1000 \
+           -e PGID=1000 \
            -e UMASK=022 \
-           -e PUID=1000 -e PGID=1000 \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr
