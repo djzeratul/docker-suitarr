@@ -2,8 +2,6 @@
 
 source /etc/env
 
-umask $UMASK
-
 cd /app || exit
 
 if [[ $APP == "radarr" ]]; then

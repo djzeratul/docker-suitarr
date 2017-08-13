@@ -10,3 +10,5 @@ if [[ -f /app.tar.gz ]]; then
     BRANCH=app.tar.gz
     VERSION=app.tar.gz
 fi
+
+umask $UMASK
