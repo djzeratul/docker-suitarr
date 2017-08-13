@@ -3,23 +3,15 @@
 source /etc/env
 
 if [[ $APP == "radarr" ]]; then
-    from=/config/Radarr
-    to=$from/Backups/manual
-    file=radarr
-
-    mkdir -p $to
-    cd $from
-    zip $to/docker_$file\_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
-    chown -R hotio:hotio $from/Backups
+    name="Radarr"
+    mkdir -p /config/$name/Backups/manual
+    zip -j /config/$name/Backups/manual/docker_${name,,}_backup_$(date +%Y.%m.%d_%H.%M.%S).zip /config/$name/nzbdrone.db /config/$name/config.xml
 fi
 
 if [[ $APP == "sonarr" ]]; then
-    from=/config/NzbDrone
-    to=$from/Backups/manual
-    file=nzbdrone
-
-    mkdir -p $to
-    cd $from
-    zip $to/docker_$file\_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
-    chown -R hotio:hotio $from/Backups
+    name="NzbDrone"
+    mkdir -p /config/$name/Backups/manual
+    zip -j /config/$name/Backups/manual/docker_${name,,}_backup_$(date +%Y.%m.%d_%H.%M.%S).zip /config/$name/nzbdrone.db /config/$name/config.xml
 fi
+
+chown -R hotio:hotio /config

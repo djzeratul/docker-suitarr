@@ -5,7 +5,7 @@ source /etc/env
 if [[ $APP == "radarr" ]]; then
     config=/config/Radarr
 
-    [[ -e $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
+    [[ -f $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
 
     if [[ -f $config/config.xml ]]; then
         sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' $config/config.xml
@@ -18,7 +18,7 @@ fi
 if [[ $APP == "sonarr" ]]; then
     config=/config/NzbDrone
 
-    [[ -e $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
+    [[ -f $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
 
     if [[ -f $config/config.xml ]]; then
         sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' $config/config.xml
