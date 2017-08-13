@@ -2,7 +2,7 @@
 
 ## What is Suitarr?
 
-Suitarr is one docker image that can run Radarr, Sonarr, Jackett and NZBHydra. By using the flag `-e APP=......`, the supported application will be downloaded and installed when starting the container.
+Suitarr is one docker image that can run Radarr, Sonarr, Jackett and NZBHydra. By using the environment variable `-e APP=......`, the supported application will be downloaded and installed when starting the container.
 This requires a lot less building of the images and all you need to do if you want to update the application is restart the container.
 
 ## Starting the container
@@ -16,7 +16,7 @@ docker run --rm \
            -e APP=radarr \
            -e UMASK=022 \
            -e PUID=1000 -e PGID=1000 \
-           -e TZ=America/New_York \
+           -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
            -v /<local_path>/movies:/movies \
@@ -32,7 +32,7 @@ docker run --rm \
            -e APP=sonarr \
            -e UMASK=022 \
            -e PUID=1000 -e PGID=1000 \
-           -e TZ=America/New_York \
+           -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
            -v /<local_path>/tvshows:/tvshows \
@@ -48,7 +48,7 @@ docker run --rm \
            -e APP=jackett \
            -e UMASK=022 \
            -e PUID=1000 -e PGID=1000 \
-           -e TZ=America/New_York \
+           -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr
 ```
@@ -62,7 +62,7 @@ docker run --rm \
            -e APP=nzbhydra \
            -e UMASK=022 \
            -e PUID=1000 -e PGID=1000 \
-           -e TZ=America/New_York \
+           -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr
 ```
@@ -76,7 +76,7 @@ By default the latest version is installed, stable/nightly depending on the app.
 - Jackett: Latest GitHub branch:master (aka nightly)
 - NZBHydra: Latest GitHub branch:master (aka stable)
 
-If you prefer to install a fixed version, you can do so, by using the following tags:
+If you prefer to install a fixed version, you can do so, by using the following environment variables:
 
 ```
 # Radarr
@@ -104,9 +104,9 @@ Or if you are modifying/self-compiling any app, you can use this feature to test
 ...
 ```
 
-## Additional tags
+## Additional environment variables
 
-You can use the following additional tags for certain apps.
+You can use the following additional environment variables for certain apps.
 
 ```
 -e JACKETT_PROXY=...
