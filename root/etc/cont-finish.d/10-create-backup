@@ -14,4 +14,10 @@ if [[ $APP == "sonarr" ]]; then
     zip -j /config/$name/Backups/manual/docker_${name,,}_backup_$(date +%Y.%m.%d_%H.%M.%S).zip /config/$name/nzbdrone.db /config/$name/config.xml
 fi
 
+if [[ $APP == "nzbhydra" ]]; then
+    echo '{"configFile": "nzbhydra.cfg", "version": "'$(cat /app/version.txt)'", "databaseFile": "nzbhydra.db"}' > /config/hydraBackupInfo.txt
+    zip -j /config/backup/docker-nzbhydra-backup-$(date +%Y-%m-%d-%H-%M-%S).zip /config/nzbhydra.cfg /config/nzbhydra.db /config/hydraBackupInfo.txt
+    rm /config/hydraBackupInfo.txt
+fi
+
 chown -R hotio:hotio /config

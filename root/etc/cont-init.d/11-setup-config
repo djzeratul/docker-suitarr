@@ -28,4 +28,9 @@ if [[ $APP == "sonarr" ]]; then
     fi
 fi
 
+if [[ $APP == "nzbhydra" ]]; then
+    mkdir -p /config/backup
+    ln -s /config/backup /app/backup
+fi
+
 chown -R hotio:hotio /config
