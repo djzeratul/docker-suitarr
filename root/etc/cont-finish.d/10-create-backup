@@ -5,22 +5,22 @@ source /etc/env
 if [[ $BACKUP == "yes" ]]; then
     if [[ $APP == "radarr" ]]; then
         mkdir -p /config/Backups/manual
-        cd /config && zip /config/Backups/manual/docker_radarr_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+        cd /config && zip /config/Backups/manual/suitarr_radarr_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
     fi
 
     if [[ $APP == "sonarr" ]]; then
         mkdir -p /config/Backups/manual
-        cd /config && zip /config/Backups/manual/docker_nzbdrone_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+        cd /config && zip /config/Backups/manual/suitarr_nzbdrone_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
     fi
 
     if [[ $APP == "jackett" ]]; then
         mkdir -p /config/Backups
-        cd /config && zip /config/Backups/docker_jackett_backup_$(date +%Y.%m.%d_%H.%M.%S).zip ServerConfig.json Indexers/*
+        cd /config && zip /config/Backups/suitarr_jackett_backup_$(date +%Y.%m.%d_%H.%M.%S).zip ServerConfig.json Indexers/*
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
         echo '{"configFile": "nzbhydra.cfg", "version": "'$(cat /app/version.txt)'", "databaseFile": "nzbhydra.db"}' > /config/hydraBackupInfo.txt
-        cd /config && zip /config/backup/docker-nzbhydra-backup-$(date +%Y-%m-%d-%H-%M-%S).zip nzbhydra.cfg nzbhydra.db hydraBackupInfo.txt
+        cd /config && zip /config/backup/suitarr-nzbhydra-backup-$(date +%Y-%m-%d-%H-%M-%S).zip nzbhydra.cfg nzbhydra.db hydraBackupInfo.txt
         rm /config/hydraBackupInfo.txt
     fi
 fi
