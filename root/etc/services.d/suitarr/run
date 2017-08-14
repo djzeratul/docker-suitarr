@@ -2,24 +2,18 @@
 
 source /etc/env
 
-cd /app || exit
-
 if [[ $APP == "radarr" ]]; then
-    exec s6-setuidgid hotio mono --debug Radarr.exe -nobrowser
+    exec s6-setuidgid hotio mono --debug /app/Radarr.exe --nobrowser --data=/config $ARGS
 fi
 
 if [[ $APP == "sonarr" ]]; then
-    exec s6-setuidgid hotio mono --debug NzbDrone.exe -nobrowser
+    exec s6-setuidgid hotio mono --debug /app/NzbDrone.exe --nobrowser --data=/config $ARGS
 fi
 
 if [[ $APP == "jackett" ]]; then
-    if [[ $JACKETT_PROXY != "none" ]]; then
-        exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080 --ProxyConnection $JACKETT_PROXY
-    else
-        exec s6-setuidgid hotio mono --debug JackettConsole.exe --Port 8080
-    fi
+    exec s6-setuidgid hotio mono --debug /app/JackettConsole.exe --NoRestart --ListenPublic --Port 8080 --DataFolder=/config $ARGS
 fi
 
 if [[ $APP == "nzbhydra" ]]; then
-    exec s6-setuidgid hotio python ./nzbhydra.py --nobrowser --config /config/nzbhydra.cfg --database /config/nzbhydra.db --logfile /config/nzbhydra.log --port 8080
+    exec s6-setuidgid hotio python /app/nzbhydra.py --nobrowser --port 8080 --config /config/nzbhydra.cfg --database /config/nzbhydra.db --logfile /config/nzbhydra.log $ARGS
 fi

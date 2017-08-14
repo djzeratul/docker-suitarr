@@ -4,7 +4,6 @@ UMASK=${UMASK:-022}
 APP=${APP:-none}
 BRANCH=${BRANCH:-default}
 VERSION=${VERSION:-default}
-JACKETT_PROXY=${JACKETT_PROXY:-none}
 
 if [[ -f /app.tar.gz ]]; then
     BRANCH=app.tar.gz

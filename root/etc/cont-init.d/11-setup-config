@@ -2,35 +2,18 @@
 
 source /etc/env
 
-if [[ $APP == "radarr" ]]; then
-    config=/config/Radarr
+if [[ $APP == "radarr" ]] || [[ $APP == "sonarr" ]]; then
+    [[ -f /config/nzbdrone.pid ]] && rm -rf /config/nzbdrone.pid
 
-    [[ -f $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
-
-    if [[ -f $config/config.xml ]]; then
-        sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' $config/config.xml
+    if [[ -f /config/config.xml ]]; then
+        sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' /config/config.xml
     else
-        mkdir -p $config
-        echo "<Config><Port>8080</Port></Config>" > $config/config.xml
-    fi
-fi
-
-if [[ $APP == "sonarr" ]]; then
-    config=/config/NzbDrone
-
-    [[ -f $config/nzbdrone.pid ]] && rm -rf $config/nzbdrone.pid
-
-    if [[ -f $config/config.xml ]]; then
-        sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' $config/config.xml
-    else
-        mkdir -p $config
-        echo "<Config><Port>8080</Port></Config>" > $config/config.xml
+        echo "<Config><Port>8080</Port></Config>" > /config/config.xml
     fi
 fi
 
 if [[ $APP == "nzbhydra" ]]; then
-    mkdir -p /config/backup
-    ln -s /config/backup /app/backup
+    mkdir -p /config/backup && ln -s /config/backup /app/backup
 fi
 
 chown -R hotio:hotio /config

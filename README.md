@@ -110,8 +110,8 @@ Or if you are modifying/self-compiling any app, you can use this feature to test
 
 ## Additional environment variables
 
-You can use the following additional environment variables for certain apps.
+You can use the following environment variable to pass on additional arguments to your app.
 
 ```
--e JACKETT_PROXY=...
+-e ARGS="--ProxyConnection localhost:8118"
 ```

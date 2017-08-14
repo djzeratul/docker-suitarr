@@ -19,7 +19,7 @@ PGID           | $PGID
 UMASK          | $UMASK
 BRANCH         | $BRANCH
 VERSION        | $VERSION
-JACKETT_PROXY  | $JACKETT_PROXY
+ARGS           | $ARGS
 -----------------------------------------------
 "
 
@@ -34,7 +34,7 @@ PGID           | $PGID
 UMASK          | $UMASK
 BRANCH         | $BRANCH
 VERSION        | $VERSION
-JACKETT_PROXY  | $JACKETT_PROXY
+ARGS           | $ARGS
 -----------------------------------------------
 "
 
