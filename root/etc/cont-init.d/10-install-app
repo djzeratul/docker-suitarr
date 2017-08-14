@@ -4,8 +4,8 @@ source /etc/env
 
 rm -rf /app/*
 
-if [[ $VERSION == "app.tar.gz" ]]; then
-    tar xf /app.tar.gz -C /app --strip-components=1
+if [[ $FILE != "none" ]]; then
+    tar xf $FILE -C /app --strip-components=1
 else
     if [[ $APP == "radarr" ]]; then
         if [[ $VERSION == "default" ]]; then
@@ -21,10 +21,12 @@ else
     fi
 
     if [[ $APP == "sonarr" ]]; then
-        if [[ $VERSION == "default" ]] && [[ $BRANCH == "default" ]]; then
+        if [[ $VERSION == "default" ]]; then
             curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
         else
-            curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/${BRANCH}/mono/NzbDrone.${BRANCH}.${VERSION}.mono.tar.gz"
+            if ! curl -s --fail -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then
+                curl -s --fail -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"
+            fi
         fi
 
         tar xf /tmp/sonarr.tar.gz -C /app --strip-components=1

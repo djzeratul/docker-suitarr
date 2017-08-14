@@ -91,7 +91,6 @@ If you prefer to install a fixed version, you can do so, by using the following 
 -e VERSION=0.2.0.307
 
 # Sonarr
--e BRANCH=develop
 -e VERSION=2.0.0.4578
 
 # Jackett
@@ -103,13 +102,11 @@ If you prefer to install a fixed version, you can do so, by using the following 
 
 ## In case of problems
 
-When the auto installation of the app fails for whatever reason, you can provide the installation files manually by mounting the file as a volume.
-Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar.gz` file.
+When the auto installation of the app fails for whatever reason, you can provide a file location to the installation files.
+Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar` file.
 
 ```
--v /<local_path>/Radarr.develop.0.2.0.817.linux.tar.gz:/app.tar.gz
--v /<local_path>/NzbDrone.master.tar.gz:/app.tar.gz
-...
+-e FILE=/config/Radarr.develop.0.2.0.817.linux.tar.gz
 ```
 
 ## Additional environment variables

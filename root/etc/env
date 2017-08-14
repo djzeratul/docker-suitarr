@@ -1,14 +1,10 @@
+APP=${APP:-none}
 PUID=${PUID:-1000}
 PGID=${PGID:-1000}
 UMASK=${UMASK:-022}
-APP=${APP:-none}
-BRANCH=${BRANCH:-default}
 VERSION=${VERSION:-default}
 BACKUP=${BACKUP:-yes}
-
-if [[ -f /app.tar.gz ]]; then
-    BRANCH=app.tar.gz
-    VERSION=app.tar.gz
-fi
+FILE=${FILE:-none}
+ARGS=$ARGS
 
 umask $UMASK

@@ -17,9 +17,9 @@ APP            | $APP
 PUID           | $PUID
 PGID           | $PGID
 UMASK          | $UMASK
-BRANCH         | $BRANCH
 VERSION        | $VERSION
 BACKUP         | $BACKUP
+FILE           | $FILE
 ARGS           | $ARGS
 -----------------------------------------------
 "
@@ -33,9 +33,9 @@ APP            | $APP
 PUID           | $PUID
 PGID           | $PGID
 UMASK          | $UMASK
-BRANCH         | $BRANCH
 VERSION        | $VERSION
 BACKUP         | $BACKUP
+FILE           | $FILE
 ARGS           | $ARGS
 -----------------------------------------------
 "
