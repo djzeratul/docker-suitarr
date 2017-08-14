@@ -15,5 +15,5 @@ if [[ $APP == "jackett" ]]; then
 fi
 
 if [[ $APP == "nzbhydra" ]]; then
-    exec s6-setuidgid hotio python /app/nzbhydra.py --nobrowser --config /config/nzbhydra.cfg --database /config/nzbhydra.db --logfile /config/nzbhydra.log $ARGS
+    exec s6-setuidgid hotio python /app/nzbhydra.py --nobrowser --port 8080 --config /config/nzbhydra.cfg --database /config/nzbhydra.db --logfile /config/nzbhydra.log $ARGS
 fi

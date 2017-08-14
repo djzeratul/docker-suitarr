@@ -17,8 +17,6 @@ if [[ $APP == "nzbhydra" ]]; then
 
     if [[ -f /config/nzbhydra.cfg ]]; then
         sed -i 's/"port": .*,/"port": 8080,/g' /config/nzbhydra.cfg
-    else
-        echo '{ "main": { "configVersion": 40, "port": 8080 } }' > /config/nzbhydra.cfg
     fi
 fi
 
