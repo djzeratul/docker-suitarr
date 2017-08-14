@@ -8,12 +8,18 @@ if [[ $APP == "radarr" ]] || [[ $APP == "sonarr" ]]; then
     if [[ -f /config/config.xml ]]; then
         sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' /config/config.xml
     else
-        echo "<Config><Port>8080</Port></Config>" > /config/config.xml
+        echo '<Config><Port>8080</Port></Config>' > /config/config.xml
     fi
 fi
 
 if [[ $APP == "nzbhydra" ]]; then
     mkdir -p /config/backup && ln -s /config/backup /app/backup
+
+    if [[ -f /config/nzbhydra.cfg ]]; then
+        sed -i 's/"port": .*,/"port": 8080,/g' /config/nzbhydra.cfg
+    else
+        echo '{ "main": { "port": 8080 } }' > /config/nzbhydra.cfg
+    fi
 fi
 
 chown -R hotio:hotio /config
