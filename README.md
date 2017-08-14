@@ -17,6 +17,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
@@ -34,6 +35,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            -v /<local_path>/downloads:/downloads \
@@ -51,6 +53,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr
@@ -66,6 +69,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
            hotio/suitarr

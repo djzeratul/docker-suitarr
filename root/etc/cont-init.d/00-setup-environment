@@ -19,6 +19,7 @@ PGID           | $PGID
 UMASK          | $UMASK
 BRANCH         | $BRANCH
 VERSION        | $VERSION
+BACKUP         | $BACKUP
 ARGS           | $ARGS
 -----------------------------------------------
 "
@@ -34,6 +35,7 @@ PGID           | $PGID
 UMASK          | $UMASK
 BRANCH         | $BRANCH
 VERSION        | $VERSION
+BACKUP         | $BACKUP
 ARGS           | $ARGS
 -----------------------------------------------
 "
