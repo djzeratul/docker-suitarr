@@ -1,5 +1,6 @@
-[![Docker Size](https://images.microbadger.com/badges/image/hotio/suitarr.svg)](https://microbadger.com/images/hotio/suitarr)
-[![Docker Pulls](https://img.shields.io/docker/pulls/hotio/suitarr.svg)](https://hub.docker.com/r/hotio/suitarr)
+[![Docker Build Statu](https://img.shields.io/docker/build/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
+[![Docker Pulls](https://img.shields.io/docker/pulls/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
+[![ImageLayers Size](https://img.shields.io/imagelayers/image-size/hotio/suitarr/latest.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
 
 ## What is Suitarr?
 
