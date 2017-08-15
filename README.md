@@ -1,4 +1,5 @@
-[![](https://images.microbadger.com/badges/image/hotio/suitarr.svg)](https://microbadger.com/images/hotio/suitarr "Get your own image badge on microbadger.com")
+[![Docker Size](https://images.microbadger.com/badges/image/hotio/suitarr.svg)](https://microbadger.com/images/hotio/suitarr)
+[![Docker Pulls](https://img.shields.io/docker/pulls/hotio/suitarr.svg)](https://hub.docker.com/r/hotio/suitarr)
 
 ## What is Suitarr?
 
