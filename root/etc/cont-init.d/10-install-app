@@ -15,21 +15,23 @@ else
         fi
         
         filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
-        curl -s -o /tmp/radarr.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
-            
-        tar xf /tmp/radarr.tar.gz -C /app --strip-components=1
+        curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
+
+        tar xf /config/app.tar.gz -C /app --strip-components=1
+        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "sonarr" ]]; then
         if [[ $VERSION == "default" ]]; then
-            curl -s -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+            curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
         else
-            if ! curl -s --fail -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then
-                curl -s --fail -o /tmp/sonarr.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"
+            if ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then
+                curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"
             fi
         fi
 
-        tar xf /tmp/sonarr.tar.gz -C /app --strip-components=1
+        tar xf /config/app.tar.gz -C /app --strip-components=1
+        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "jackett" ]]; then
@@ -40,21 +42,22 @@ else
         fi
         
         filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
-        curl -s -o /tmp/jackett.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
+        curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
 
-        tar xf /tmp/jackett.tar.gz -C /app --strip-components=1
+        tar xf /config/app.tar.gz -C /app --strip-components=1
+        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
         if [[ $VERSION == "default" ]]; then
-            curl -s -o /tmp/nzbhydra.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
+            curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
         else
-            curl -s -o /tmp/nzbhydra.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
+            curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
         fi
-        
-        tar xf /tmp/nzbhydra.tar.gz -C /app --strip-components=1
+
+        tar xf /config/app.tar.gz -C /app --strip-components=1
+        chown hotio:hotio /config/app.tar.gz
     fi
 fi
- 
-rm -rf /tmp/*
+
 chown -R hotio:hotio /app
