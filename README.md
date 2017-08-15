@@ -2,7 +2,7 @@
 [![Docker Automated buil](https://img.shields.io/docker/automated/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
 [![Docker Stars](https://img.shields.io/docker/stars/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
-[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?style=flat-square)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?style=flat-square)](https://github.com/hotio/docker-suitarr)
 
 ## What is Suitarr?
 
