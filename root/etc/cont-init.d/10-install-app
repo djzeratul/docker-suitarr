@@ -30,7 +30,7 @@ else
                         ;;
             unstable)   curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.tar.gz"
                         ;;
-            *)          [[ ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz" ]] && [[ curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz" ]]
+            *)          if ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"; fi
                         ;;
         esac
 
