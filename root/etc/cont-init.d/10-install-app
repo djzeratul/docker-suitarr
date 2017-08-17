@@ -8,12 +8,15 @@ if [[ $FILE != "none" ]]; then
     tar xf $FILE -C /app --strip-components=1
 else
     if [[ $APP == "radarr" ]]; then
-        if [[ $VERSION == "default" ]]; then
-            jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop" | jq -r '.build.jobs[0].jobId')
-        else
-            jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
-        fi
-        
+        case $VERSION in
+            stable)     jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].tag_name | sed s/v//g)" | jq -r '.build.jobs[0].jobId')
+                        ;;
+            unstable)   jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop" | jq -r '.build.jobs[0].jobId')
+                        ;;
+            *)          jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+                        ;;
+        esac
+
         filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
         curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
 
@@ -22,25 +25,29 @@ else
     fi
 
     if [[ $APP == "sonarr" ]]; then
-        if [[ $VERSION == "default" ]]; then
-            curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
-        else
-            if ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then
-                curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"
-            fi
-        fi
+        case $VERSION in
+            stable)     curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+                        ;;
+            unstable)   curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.tar.gz"
+                        ;;
+            *)          [[ ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz" ]] && [[ curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz" ]]
+                        ;;
+        esac
 
         tar xf /config/app.tar.gz -C /app --strip-components=1
         chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "jackett" ]]; then
-        if [[ $VERSION == "default" ]]; then
-            jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/branch/master" | jq -r '.build.jobs[0].jobId')
-        else
-            jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
-        fi
-        
+        case $VERSION in
+            stable)     jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .tag_name | sed s/v//g)" | jq -r '.build.jobs[0].jobId')
+                        ;;
+            unstable)   jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/branch/master" | jq -r '.build.jobs[0].jobId')
+                        ;;
+            *)          jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+                        ;;
+        esac
+
         filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
         curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
 
@@ -49,11 +56,14 @@ else
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
-        if [[ $VERSION == "default" ]]; then
-            curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
-        else
-            curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
-        fi
+        case $VERSION in
+            stable)     curl -s --fail -o /config/app.tar.gz -L "$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)"
+                        ;;
+            unstable)   curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
+                        ;;
+            *)          curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
+                        ;;
+        esac
 
         tar xf /config/app.tar.gz -C /app --strip-components=1
         chown hotio:hotio /config/app.tar.gz

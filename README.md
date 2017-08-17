@@ -21,6 +21,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e VERSION=stable \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
@@ -39,6 +40,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e VERSION=stable \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
@@ -57,6 +59,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e VERSION=stable \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
@@ -73,6 +76,7 @@ docker run --rm \
            -e PUID=1000 \
            -e PGID=1000 \
            -e UMASK=022 \
+           -e VERSION=stable \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
@@ -81,26 +85,24 @@ docker run --rm \
 
 ## Installing a different version
 
-By default the latest version is installed, stable/nightly depending on the app.
-
-- Radarr: Latest GitHub branch:develop (aka nightly)
-- Sonarr: Latest GitHub branch:master (aka stable)
-- Jackett: Latest GitHub branch:master (aka nightly)
-- NZBHydra: Latest GitHub branch:master (aka stable)
-
-If you prefer to install a fixed version, you can do so, by using the following environment variables:
+By default the latest stable version is installed. You can however change this behaviour with the following environment variable.
+The value `unstable` will install the latest unstable version, using a version number as a value, installs the specified version.
 
 ```
 # Radarr
+-e VERSION=unstable
 -e VERSION=0.2.0.307
 
 # Sonarr
+-e VERSION=unstable
 -e VERSION=2.0.0.4578
 
 # Jackett
+-e VERSION=unstable
 -e VERSION=0.7.1001
 
 # NZBHydra
+-e VERSION=unstable
 -e VERSION=f60a628cc5d2a17677e6c9b6bb12ad41063ea4e0
 ```
 
@@ -108,6 +110,7 @@ If you prefer to install a fixed version, you can do so, by using the following 
 
 When the auto installation of the app fails for whatever reason, you can provide a file location to the installation files.
 Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar` file.
+By default the latest successful installation files are kept as backup, if some file server goes offline, the backup is installed.
 
 ```
 -e FILE=/config/Radarr.develop.0.2.0.817.linux.tar.gz
