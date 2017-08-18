@@ -4,6 +4,16 @@
 [![Docker Stars](https://img.shields.io/docker/stars/hotio/suitarr.svg?style=flat-square)](https://hub.docker.com/r/hotio/suitarr)
 [![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?style=flat-square)](https://github.com/hotio/docker-suitarr)
 
+```
+    _________      __  __
+   /   _____/__ __|__|/  |______ ______________
+   \_____  \|  |  \  \   __\__  \\_  __ \_  __ \
+   /        \  |  /  ||  |  / __ \|  | \/|  | \/
+  /_______  /____/|__||__| (____  /__|   |__|
+          \/                    \/
+
+```
+
 ## What is Suitarr?
 
 Suitarr is one docker image that can run Radarr, Sonarr, Jackett and NZBHydra. By using the environment variable `-e APP=......`, the supported application will be downloaded and installed when starting the container.
