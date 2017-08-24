@@ -48,9 +48,7 @@ else
             unstable)   url=$(curl -s https://api.github.com/repos/jackett/jackett/releases | jq -r .[0].assets[0].browser_download_url)
                         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
-            *)          jobid=$(curl -s https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION} | jq -r '.build.jobs[0].jobId')
-                        filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
-                        url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
+            *)          url=$(curl -s https://api.github.com/repos/jackett/jackett/releases/tags/v$VERSION | jq -r .assets[0].browser_download_url)
                         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
         esac
