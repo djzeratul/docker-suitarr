@@ -9,64 +9,63 @@ if [[ $FILE != "none" ]]; then
 else
     if [[ $APP == "radarr" ]]; then
         case $VERSION in
-            stable)     jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].tag_name | sed s/v//g)" | jq -r '.build.jobs[0].jobId')
+            stable)     url=$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].assets[1].browser_download_url)
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            unstable)   jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop" | jq -r '.build.jobs[0].jobId')
+            unstable)   jobid=$(curl -s https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop | jq -r '.build.jobs[0].jobId')
+                        filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
+                        url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            *)          jobid=$(curl -s "https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+            *)          jobid=$(curl -s https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION} | jq -r '.build.jobs[0].jobId')
+                        filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
+                        url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
         esac
-
-        filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
-        curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
-
-        tar xf /config/app.tar.gz -C /app --strip-components=1
-        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "sonarr" ]]; then
         case $VERSION in
-            stable)     curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+            stable)     url=http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            unstable)   curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.tar.gz"
+            unstable)   url=http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.tar.gz
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            *)          if ! curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz"; then curl -s --fail -o /config/app.tar.gz -L "http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz"; fi
+            *)          if ! curl -s --fail -o - -L http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz && tar xf - -C /app --strip-components=1; then curl -s --fail -o - -L http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz && tar xf - -C /app --strip-components=1; fi
                         ;;
         esac
-
-        tar xf /config/app.tar.gz -C /app --strip-components=1
-        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "jackett" ]]; then
         case $VERSION in
-            stable)     jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .tag_name | sed s/v//g)" | jq -r '.build.jobs[0].jobId')
+            stable)     url=$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .assets[0].browser_download_url)
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            unstable)   jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/branch/master" | jq -r '.build.jobs[0].jobId')
+            unstable)   url=$(curl -s https://api.github.com/repos/jackett/jackett/releases | jq -r .[0].assets[0].browser_download_url)
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            *)          jobid=$(curl -s "https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION}" | jq -r '.build.jobs[0].jobId')
+            *)          jobid=$(curl -s https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION} | jq -r '.build.jobs[0].jobId')
+                        filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
+                        url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
         esac
-
-        filename=$(curl -s "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts" | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
-        curl -s --fail -o /config/app.tar.gz -L "https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}"
-
-        tar xf /config/app.tar.gz -C /app --strip-components=1
-        chown hotio:hotio /config/app.tar.gz
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
         case $VERSION in
-            stable)     curl -s --fail -o /config/app.tar.gz -L "$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)"
+            stable)     url=$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            unstable)   curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/master.tar.gz"
+            unstable)   url=https://github.com/theotherp/nzbhydra/archive/master.tar.gz
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
-            *)          curl -s --fail -o /config/app.tar.gz -L "https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz"
+            *)          url=https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz
+                        curl -s --fail -o - -L $url && tar xf - -C /app --strip-components=1
                         ;;
         esac
-
-        tar xf /config/app.tar.gz -C /app --strip-components=1
-        chown hotio:hotio /config/app.tar.gz
     fi
 fi
 

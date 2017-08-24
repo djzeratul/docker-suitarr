@@ -118,8 +118,7 @@ The value `unstable` will install the latest unstable version, using a version n
 ## In case of problems
 
 When the auto installation of the app fails for whatever reason, you can provide a file location to the installation files.
-Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar` file.
-By default the latest successful installation files are kept as backup, if some file server goes offline, the backup is installed.
+Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar.gz` file.
 
 ```
 -e FILE=/config/Radarr.develop.0.2.0.817.linux.tar.gz
