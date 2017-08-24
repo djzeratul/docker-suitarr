@@ -10,17 +10,17 @@ else
     if [[ $APP == "radarr" ]]; then
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].assets[1].browser_download_url)
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             unstable)   jobid=$(curl -s https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/branch/develop | jq -r '.build.jobs[0].jobId')
                         filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
                         url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             *)          jobid=$(curl -s https://ci.appveyor.com/api/projects/galli-leo/radarr-usby1/build/${VERSION} | jq -r '.build.jobs[0].jobId')
                         filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Radarr.*.linux.tar.gz")
                         url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
         esac
     fi
@@ -28,13 +28,13 @@ else
     if [[ $APP == "sonarr" ]]; then
         case $VERSION in
             stable)     url=http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1
                         ;;
             unstable)   url=http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.tar.gz
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1
                         ;;
-            *)          if ! curl -s --fail -o - -L http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz && tar xzf - -C /app --strip-components=1; then
-                            curl -s --fail -o - -L http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz && tar xzf - -C /app --strip-components=1
+            *)          if ! curl -s --fail -o /tmp/app.tar.gz -L http://download.sonarr.tv/v2/master/mono/NzbDrone.master.${VERSION}.mono.tar.gz && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz; then
+                            curl -s --fail -o /tmp/app.tar.gz -L http://download.sonarr.tv/v2/develop/mono/NzbDrone.develop.${VERSION}.mono.tar.gz && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         fi
                         ;;
         esac
@@ -43,15 +43,15 @@ else
     if [[ $APP == "jackett" ]]; then
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .assets[0].browser_download_url)
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             unstable)   url=$(curl -s https://api.github.com/repos/jackett/jackett/releases | jq -r .[0].assets[0].browser_download_url)
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             *)          jobid=$(curl -s https://ci.appveyor.com/api/projects/camjac251/jackett/build/${VERSION} | jq -r '.build.jobs[0].jobId')
                         filename=$(curl -s https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts | jq -r '.[].fileName' | grep -o ".*Mono.tar.gz")
                         url=https://ci.appveyor.com/api/buildjobs/${jobid}/artifacts/${filename}
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
         esac
     fi
@@ -59,13 +59,13 @@ else
     if [[ $APP == "nzbhydra" ]]; then
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             unstable)   url=https://github.com/theotherp/nzbhydra/archive/master.tar.gz
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
             *)          url=https://github.com/theotherp/nzbhydra/archive/$VERSION.tar.gz
-                        curl -s --fail -o - -L $url && tar xzf - -C /app --strip-components=1
+                        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
                         ;;
         esac
     fi
