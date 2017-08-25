@@ -28,6 +28,11 @@ if [[ $BACKUP == "yes" ]]; then
         mkdir -p /config/Backups
         cd /config && zip /config/Backups/suitarr_nzbget_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbget.conf
     fi
+
+    if [[ $APP == "sabnzbd" ]]; then
+        mkdir -p /config/Backups
+        cd /config && zip /config/Backups/suitarr_sabnzbd_backup_$(date +%Y.%m.%d_%H.%M.%S).zip sabnzbd.ini
+    fi
 fi
 
 chown -R hotio:hotio /config
