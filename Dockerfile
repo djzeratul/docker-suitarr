@@ -20,7 +20,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
         python \
         python-sabyenc \
         python-cryptography \
-        par2cmdline-tbb \
+        par2-tbb \
         bzip2 \
         xz-utils \
         unrar \
