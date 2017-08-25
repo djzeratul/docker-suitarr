@@ -92,6 +92,23 @@ docker run --rm \
            hotio/suitarr
 ```
 
+#### NZBGet
+
+```
+docker run --rm \
+           --name nzbget \
+           -p 6789:8080 \
+           -e APP=nzbget \
+           -e PUID=1000 \
+           -e PGID=1000 \
+           -e UMASK=022 \
+           -e VERSION=stable \
+           -e BACKUP=yes \
+           -v /etc/localtime:/etc/localtime:ro \
+           -v /<local_path>/config:/config \
+           hotio/suitarr
+```
+
 ## Installing a different version
 
 By default the latest stable version is installed. You can however change this behaviour with the following environment variable.
@@ -113,15 +130,20 @@ The value `unstable` will install the latest unstable version, using a version n
 # NZBHydra
 -e VERSION=unstable
 -e VERSION=f60a628cc5d2a17677e6c9b6bb12ad41063ea4e0
+
+# NZBGet
+-e VERSION=unstable
+-e VERSION=19.1-r2031
 ```
 
 ## In case of problems
 
 When the auto installation of the app fails for whatever reason, you can provide a file location to the installation files.
-Or if you are modifying/self-compiling any app, you can use this feature to test your version. All files should be in a `tar.gz` file.
+Or if you are modifying/self-compiling any app, you can use this feature to test your version. Possible file extensions are `tar.gz` and `.run`.
 
 ```
 -e FILE=/config/Radarr.develop.0.2.0.817.linux.tar.gz
+-e FILE=/config/nzbget-19.1-bin-linux.run
 ```
 
 ## Additional environment variables

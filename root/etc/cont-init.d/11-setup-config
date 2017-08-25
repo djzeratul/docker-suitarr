@@ -3,7 +3,7 @@
 source /etc/env
 
 if [[ $APP == "radarr" ]] || [[ $APP == "sonarr" ]]; then
-    [[ -f /config/nzbdrone.pid ]] && rm -rf /config/nzbdrone.pid
+    [[ -f /config/nzbdrone.pid ]] && rm /config/nzbdrone.pid
 
     if [[ -f /config/config.xml ]]; then
         sed -i 's/<Port>.*<\/Port>/<Port>8080<\/Port>/g' /config/config.xml
@@ -17,6 +17,19 @@ if [[ $APP == "nzbhydra" ]]; then
 
     if [[ -f /config/nzbhydra.cfg ]]; then
         sed -i 's/"port": .*,/"port": 8080,/g' /config/nzbhydra.cfg
+    fi
+fi
+
+if [[ $APP == "nzbget" ]]; then
+    [[ -f /config/nzbget.lock ]] && rm /config/nzbget.lock
+
+    if [[ ! -f /config/nzbget.conf ]]; then
+        cat /app/nzbget.conf | sed -e "s#\(MainDir=\).*#\1/config/downloads#g" \
+                                   -e "s#\(QueueDir=\).*#\1/config/queue#g" \
+                                   -e "s#\(TempDir=\).*#\1/config/tmp#g" \
+                                   -e "s#\(LockFile=\).*#\1/config/nzbget.lock#g" \
+                                   -e "s#\(LogFile=\).*#\1/config/nzbget.log#g" \
+                                   > /config/nzbget.conf
     fi
 fi
 

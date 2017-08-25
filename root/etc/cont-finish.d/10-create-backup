@@ -23,6 +23,11 @@ if [[ $BACKUP == "yes" ]]; then
         cd /config && zip /config/backup/suitarr-nzbhydra-backup-$(date +%Y-%m-%d-%H-%M-%S).zip nzbhydra.cfg nzbhydra.db hydraBackupInfo.txt
         rm /config/hydraBackupInfo.txt
     fi
+
+    if [[ $APP == "nzbget" ]]; then
+        mkdir -p /config/Backups
+        cd /config && zip /config/Backups/suitarr_nzbget_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbget.conf
+    fi
 fi
 
 chown -R hotio:hotio /config

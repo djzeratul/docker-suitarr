@@ -4,10 +4,10 @@ source /etc/env
 
 rm -rf /app/*
 
-if [[ $FILE != "none" ]]; then
-    tar xzf $FILE -C /app --strip-components=1
-else
-    if [[ $APP == "radarr" ]]; then
+if [[ $APP == "radarr" ]]; then
+    if [[ $FILE != "none" ]]; then
+        tar xzf $FILE -C /app --strip-components=1
+    else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].assets[1].browser_download_url)
                         ;;
@@ -22,8 +22,12 @@ else
         esac
         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
     fi
+fi
 
-    if [[ $APP == "sonarr" ]]; then
+if [[ $APP == "sonarr" ]]; then
+    if [[ $FILE != "none" ]]; then
+        tar xzf $FILE -C /app --strip-components=1
+    else
         case $VERSION in
             stable)     url=http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz
                         ;;
@@ -38,8 +42,12 @@ else
         esac
         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
     fi
+fi
 
-    if [[ $APP == "jackett" ]]; then
+if [[ $APP == "jackett" ]]; then
+    if [[ $FILE != "none" ]]; then
+        tar xzf $FILE -C /app --strip-components=1
+    else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .assets[0].browser_download_url)
                         ;;
@@ -50,8 +58,12 @@ else
         esac
         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
     fi
+fi
 
-    if [[ $APP == "nzbhydra" ]]; then
+if [[ $APP == "nzbhydra" ]]; then
+    if [[ $FILE != "none" ]]; then
+        tar xzf $FILE -C /app --strip-components=1
+    else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)
                         ;;
@@ -61,6 +73,22 @@ else
                         ;;
         esac
         curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
+    fi
+fi
+
+if [[ $APP == "nzbget" ]]; then
+    if [[ $FILE != "none" ]]; then
+        sh $FILE --destdir /app
+    else
+        case $VERSION in
+            stable)     url=$(curl -s https://api.github.com/repos/nzbget/nzbget/releases/latest | jq -r .assets[3].browser_download_url)
+                        ;;
+            unstable)   url=$(curl -s https://api.github.com/repos/nzbget/nzbget/releases | jq -r .[0].assets[3].browser_download_url)
+                        ;;
+            *)          url=$(curl -s https://api.github.com/repos/nzbget/nzbget/releases/tags/v$VERSION | jq -r .assets[3].browser_download_url)
+                        ;;
+        esac
+        curl -s --fail -o /tmp/app.run -L $url && sh /tmp/app.run --destdir /app && rm /tmp/app.run
     fi
 fi
 
