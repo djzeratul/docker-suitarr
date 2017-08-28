@@ -20,6 +20,8 @@ This requires a lot less building of the images and all you need to do if you wa
 
 ## Starting the container
 
+The environment variables `PUID`, `PGID`, `UMASK`, `VERSION` and `BACKUP` are all optional, the values you see below are the default values.
+
 #### Radarr
 
 ```
@@ -34,8 +36,6 @@ docker run --rm \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
-           -v /<local_path>/downloads:/downloads \
-           -v /<local_path>/movies:/movies \
            hotio/suitarr
 ```
 
@@ -53,8 +53,6 @@ docker run --rm \
            -e BACKUP=yes \
            -v /etc/localtime:/etc/localtime:ro \
            -v /<local_path>/config:/config \
-           -v /<local_path>/downloads:/downloads \
-           -v /<local_path>/tvshows:/tvshows \
            hotio/suitarr
 ```
 
@@ -128,43 +126,64 @@ docker run --rm \
 
 ## Installing a different version
 
-By default the latest stable version is installed. You can however change this behaviour with the following environment variable.
-The value `unstable` will install the latest unstable version, using a version number as a value, installs the specified version.
-When given an absolute path, a local file can be installed.
+By default the latest stable version is installed. You can however change this behaviour with the environment variable `VERSION`.
+The value `unstable` will install the latest unstable version, using a version number like `0.2.0.307` as a value, installs the specified version.
+When given an absolute path like `/config/Radarr.develop.0.2.0.817.linux.tar.gz`, installs that local file.
+
+#### Radarr
 
 ```
-# Radarr
 -e VERSION=unstable
 -e VERSION=0.2.0.307
 -e VERSION=/config/Radarr.develop.0.2.0.817.linux.tar.gz
+```
 
-# Sonarr
+#### Sonarr
+
+```
 -e VERSION=unstable
 -e VERSION=2.0.0.4578
 -e VERSION=/config/NzbDrone.develop.tar.gz
+```
 
-# Jackett
+#### Jackett
+
+```
 -e VERSION=unstable
 -e VERSION=0.7.1001
 -e VERSION=/config/Jackett.Binaries.Mono.tar.gz
+```
 
-# NZBHydra
+#### NZBHydra
+
+```
 -e VERSION=unstable
 -e VERSION=f60a628cc5d2a17677e6c9b6bb12ad41063ea4e0
 -e VERSION=/config/0.2.226.tar.gz
+```
 
-# NZBGet
+#### NZBGet
+
+```
 -e VERSION=unstable
 -e VERSION=19.1-r2031
 -e VERSION=/config/nzbget-19.1-bin-linux.run
+```
 
-# SABnzbd
+#### SABnzbd
+
+```
 -e VERSION=unstable
 -e VERSION=2.2.1RC2
 -e VERSION=/config/SABnzbd-2.2.1-src.tar.gz
 ```
 
-## Additional environment variables
+## Backing up the configuration
+
+By default on every docker container shutdown a backup is created from the configuration files, in the same manner as the apps do on their own.
+To disable this, use `-e BACKUP=no`.
+
+## Additional app arguments
 
 You can use the following environment variable to pass on additional arguments to your app.
 
