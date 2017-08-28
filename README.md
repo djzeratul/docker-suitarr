@@ -130,41 +130,38 @@ docker run --rm \
 
 By default the latest stable version is installed. You can however change this behaviour with the following environment variable.
 The value `unstable` will install the latest unstable version, using a version number as a value, installs the specified version.
+When given an absolute path, a local file can be installed.
 
 ```
 # Radarr
 -e VERSION=unstable
 -e VERSION=0.2.0.307
+-e VERSION=/config/Radarr.develop.0.2.0.817.linux.tar.gz
 
 # Sonarr
 -e VERSION=unstable
 -e VERSION=2.0.0.4578
+-e VERSION=/config/NzbDrone.develop.tar.gz
 
 # Jackett
 -e VERSION=unstable
 -e VERSION=0.7.1001
+-e VERSION=/config/Jackett.Binaries.Mono.tar.gz
 
 # NZBHydra
 -e VERSION=unstable
 -e VERSION=f60a628cc5d2a17677e6c9b6bb12ad41063ea4e0
+-e VERSION=/config/0.2.226.tar.gz
 
 # NZBGet
 -e VERSION=unstable
 -e VERSION=19.1-r2031
+-e VERSION=/config/nzbget-19.1-bin-linux.run
 
 # SABnzbd
 -e VERSION=unstable
 -e VERSION=2.2.1RC2
-```
-
-## In case of problems
-
-When the auto installation of the app fails for whatever reason, you can provide a file location to the installation files.
-Or if you are modifying/self-compiling any app, you can use this feature to test your version. Possible file extensions are `tar.gz` and `.run`.
-
-```
--e FILE=/config/Radarr.develop.0.2.0.817.linux.tar.gz
--e FILE=/config/nzbget-19.1-bin-linux.run
+-e VERSION=/config/SABnzbd-2.2.1-src.tar.gz
 ```
 
 ## Additional environment variables

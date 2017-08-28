@@ -19,7 +19,6 @@ PGID           | $PGID
 UMASK          | $UMASK
 VERSION        | $VERSION
 BACKUP         | $BACKUP
-FILE           | $FILE
 ARGS           | $ARGS
 -----------------------------------------------
 "
@@ -35,7 +34,6 @@ PGID           | $PGID
 UMASK          | $UMASK
 VERSION        | $VERSION
 BACKUP         | $BACKUP
-FILE           | $FILE
 ARGS           | $ARGS
 -----------------------------------------------
 "

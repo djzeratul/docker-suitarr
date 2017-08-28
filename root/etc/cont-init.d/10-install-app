@@ -5,8 +5,8 @@ source /etc/env
 rm -rf /app/*
 
 if [[ $APP == "radarr" ]]; then
-    if [[ $FILE != "none" ]]; then
-        tar xzf $FILE -C /app --strip-components=1
+    if [[ $VERSION == /* ]]; then
+        tar xzf $VERSION -C /app --strip-components=1
     else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/radarr/radarr/releases | jq -r .[0].assets[1].browser_download_url)
@@ -25,8 +25,8 @@ if [[ $APP == "radarr" ]]; then
 fi
 
 if [[ $APP == "sonarr" ]]; then
-    if [[ $FILE != "none" ]]; then
-        tar xzf $FILE -C /app --strip-components=1
+    if [[ $VERSION == /* ]]; then
+        tar xzf $VERSION -C /app --strip-components=1
     else
         case $VERSION in
             stable)     url=http://download.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz
@@ -45,8 +45,8 @@ if [[ $APP == "sonarr" ]]; then
 fi
 
 if [[ $APP == "jackett" ]]; then
-    if [[ $FILE != "none" ]]; then
-        tar xzf $FILE -C /app --strip-components=1
+    if [[ $VERSION == /* ]]; then
+        tar xzf $VERSION -C /app --strip-components=1
     else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/jackett/jackett/releases/latest | jq -r .assets[0].browser_download_url)
@@ -61,8 +61,8 @@ if [[ $APP == "jackett" ]]; then
 fi
 
 if [[ $APP == "nzbhydra" ]]; then
-    if [[ $FILE != "none" ]]; then
-        tar xzf $FILE -C /app --strip-components=1
+    if [[ $VERSION == /* ]]; then
+        tar xzf $VERSION -C /app --strip-components=1
     else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/theotherp/nzbhydra/releases/latest | jq -r .tarball_url)
@@ -77,8 +77,8 @@ if [[ $APP == "nzbhydra" ]]; then
 fi
 
 if [[ $APP == "nzbget" ]]; then
-    if [[ $FILE != "none" ]]; then
-        sh $FILE --destdir /app
+    if [[ $VERSION == /* ]]; then
+        sh $VERSION --destdir /app
     else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/nzbget/nzbget/releases/latest | jq -r .assets[3].browser_download_url)
@@ -93,8 +93,8 @@ if [[ $APP == "nzbget" ]]; then
 fi
 
 if [[ $APP == "sabnzbd" ]]; then
-    if [[ $FILE != "none" ]]; then
-        tar xzf $FILE -C /app --strip-components=1
+    if [[ $VERSION == /* ]]; then
+        tar xzf $VERSION -C /app --strip-components=1
     else
         case $VERSION in
             stable)     url=$(curl -s https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest | jq -r .assets[2].browser_download_url)
