@@ -21,7 +21,3 @@ fi
 if [[ $APP == "nzbget" ]]; then
     exec s6-setuidgid hotio /app/nzbget --server --option OutputMode=log --option ControlPort=8080 --configfile /config/nzbget.conf $ARGS
 fi
-
-if [[ $APP == "sabnzbd" ]]; then
-    exec s6-setuidgid hotio python /app/SABnzbd.py --browser 0 --server 0.0.0.0:8080 --config-file /config $ARGS
-fi

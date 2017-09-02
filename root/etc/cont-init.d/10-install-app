@@ -92,20 +92,4 @@ if [[ $APP == "nzbget" ]]; then
     fi
 fi
 
-if [[ $APP == "sabnzbd" ]]; then
-    if [[ $VERSION == /* ]]; then
-        tar xzf $VERSION -C /app --strip-components=1
-    else
-        case $VERSION in
-            stable)     url=$(curl -s https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest | jq -r .assets[2].browser_download_url)
-                        ;;
-            unstable)   url=$(curl -s https://api.github.com/repos/sabnzbd/sabnzbd/releases | jq -r .[0].assets[2].browser_download_url)
-                        ;;
-            *)          url=$(curl -s https://api.github.com/repos/sabnzbd/sabnzbd/releases/tags/$VERSION | jq -r .assets[2].browser_download_url)
-                        ;;
-        esac
-        curl -s --fail -o /tmp/app.tar.gz -L $url && tar xzf /tmp/app.tar.gz -C /app --strip-components=1 && rm /tmp/app.tar.gz
-    fi
-fi
-
 chown -R hotio:hotio /app

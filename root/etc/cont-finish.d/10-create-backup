@@ -25,9 +25,5 @@ if [[ $BACKUP == "yes" ]]; then
         tar -czf /config/backups-suitarr/nzbget_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config nzbget.conf
     fi
 
-    if [[ $APP == "sabnzbd" ]]; then
-        tar -czf /config/backups-suitarr/sabnzbd_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config sabnzbd.ini
-    fi
-
     chown -R hotio:hotio /config/backups-suitarr
 fi

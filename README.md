@@ -107,23 +107,6 @@ docker run --rm \
            hotio/suitarr
 ```
 
-#### SABnzbd
-
-```
-docker run --rm \
-           --name sabnzbd \
-           -p 8080:8080 \
-           -e APP=sabnzbd \
-           -e PUID=1000 \
-           -e PGID=1000 \
-           -e UMASK=022 \
-           -e VERSION=stable \
-           -e BACKUP=yes \
-           -v /etc/localtime:/etc/localtime:ro \
-           -v /<local_path>/config:/config \
-           hotio/suitarr
-```
-
 ## Installing a different version
 
 By default the latest stable version is installed. You can however change this behaviour with the environment variable `VERSION`.

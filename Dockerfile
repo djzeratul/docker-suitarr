@@ -11,7 +11,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests \
         dirmngr && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && echo "deb http://download.mono-project.com/repo/ubuntu xenial main" | tee /etc/apt/sources.list.d/mono-official.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 98703123E0F52B2BE16D586EF13930B14BB9F05F && echo "deb http://ppa.launchpad.net/jcfp/sab-addons/ubuntu zesty main" | tee /etc/apt/sources.list.d/sab-addons.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests \
         jq \
@@ -21,15 +20,6 @@ RUN apt-get update && \
         mono-devel \
         sqlite3 \
         python \
-        python-cheetah \
-        python-sabyenc \
-        python-cryptography \
-        par2-tbb \
-        bzip2 \
-        xz-utils \
-        unrar \
-        unzip \
-        p7zip-full \
         mediainfo && \
 
 # install s6-overlay
