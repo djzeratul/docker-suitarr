@@ -180,7 +180,7 @@ When given an absolute path like `/config/Radarr.develop.0.2.0.817.linux.tar.gz`
 
 ## Backing up the configuration
 
-By default on every docker container shutdown a backup is created from the configuration files, in the same manner as the apps do on their own.
+By default on every docker container shutdown a backup is created from the configuration files.
 To disable this, use `-e BACKUP=no`.
 
 ## Additional app arguments

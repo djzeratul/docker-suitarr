@@ -29,7 +29,6 @@ RUN apt-get update && \
         xz-utils \
         unrar \
         unzip \
-        zip \
         p7zip-full \
         mediainfo && \
 

@@ -3,36 +3,31 @@
 source /etc/env
 
 if [[ $BACKUP == "yes" ]]; then
+    mkdir -p /config/backups-suitarr
+
     if [[ $APP == "radarr" ]]; then
-        mkdir -p /config/Backups/manual
-        cd /config && zip /config/Backups/manual/suitarr_radarr_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+        tar -czf /config/backups-suitarr/radarr_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config nzbdrone.db config.xml
     fi
 
     if [[ $APP == "sonarr" ]]; then
-        mkdir -p /config/Backups/manual
-        cd /config && zip /config/Backups/manual/suitarr_nzbdrone_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbdrone.db config.xml
+        tar -czf /config/backups-suitarr/sonarr_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config nzbdrone.db config.xml
     fi
 
     if [[ $APP == "jackett" ]]; then
-        mkdir -p /config/Backups
-        cd /config && zip /config/Backups/suitarr_jackett_backup_$(date +%Y.%m.%d_%H.%M.%S).zip ServerConfig.json Indexers/*
+        tar -czf /config/backups-suitarr/jackett_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config ServerConfig.json Indexers .mono
     fi
 
     if [[ $APP == "nzbhydra" ]]; then
-        echo '{"configFile": "nzbhydra.cfg", "version": "'$(cat /app/version.txt)'", "databaseFile": "nzbhydra.db"}' > /config/hydraBackupInfo.txt
-        cd /config && zip /config/backup/suitarr-nzbhydra-backup-$(date +%Y-%m-%d-%H-%M-%S).zip nzbhydra.cfg nzbhydra.db hydraBackupInfo.txt
-        rm /config/hydraBackupInfo.txt
+        tar -czf /config/backups-suitarr/nzbhydra_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config nzbhydra.cfg nzbhydra.db
     fi
 
     if [[ $APP == "nzbget" ]]; then
-        mkdir -p /config/Backups
-        cd /config && zip /config/Backups/suitarr_nzbget_backup_$(date +%Y.%m.%d_%H.%M.%S).zip nzbget.conf
+        tar -czf /config/backups-suitarr/nzbget_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config nzbget.conf
     fi
 
     if [[ $APP == "sabnzbd" ]]; then
-        mkdir -p /config/Backups
-        cd /config && zip /config/Backups/suitarr_sabnzbd_backup_$(date +%Y.%m.%d_%H.%M.%S).zip sabnzbd.ini
+        tar -czf /config/backups-suitarr/sabnzbd_backup_$(date +%Y.%m.%d_%H.%M.%S).tar.gz -C /config sabnzbd.ini
     fi
-fi
 
-chown -R hotio:hotio /config
+    chown -R hotio:hotio /config/backups-suitarr
+fi
