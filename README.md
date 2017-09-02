@@ -153,14 +153,6 @@ When given an absolute path like `/config/Radarr.develop.0.2.0.817.linux.tar.gz`
 -e VERSION=/config/nzbget-19.1-bin-linux.run
 ```
 
-#### SABnzbd
-
-```
--e VERSION=unstable
--e VERSION=2.2.1RC2
--e VERSION=/config/SABnzbd-2.2.1-src.tar.gz
-```
-
 ## Backing up the configuration
 
 By default on every docker container shutdown a backup is created from the configuration files.
