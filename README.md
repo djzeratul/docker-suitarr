@@ -15,7 +15,7 @@
 
 ## What is Suitarr?
 
-Suitarr is one docker image that can run Radarr, Sonarr, Jackett and NZBHydra. By using the environment variable `-e APP=......`, the supported application will be downloaded and installed when starting the container.
+Suitarr is one docker image that can run Radarr, Sonarr, Jackett, NZBHydra and NZBGet. By using the environment variable `-e APP=......`, the supported application will be downloaded and installed when starting the container.
 This requires a lot less building of the images and all you need to do if you want to update the application is restart the container.
 
 ## Starting the container
